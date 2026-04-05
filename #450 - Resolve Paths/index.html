@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>#450 - Resolve Paths</title>
+    </head>
+    <body>
+        <!--
+	You are given a file system represented as an object where
+	keys are absolute paths and values are either `null` (real
+	file/directory) or a string (a symlink pointing to another
+	path). Write a function that resolves a given path to its
+	real destination, following symlinks along the way. If a
+	symlink chain forms a cycle, return `null`.
+
+	const fs = { "/a": "/b", "/b": "/c", "/c": null, "/loop1": "/loop2",
+	"/loop2": "/loop1", "/real": null, "/alias": "/real", }; resolvePath(fs,
+	"/a"); // "/c" resolvePath(fs, "/alias"); // "/real" resolvePath(fs,
+	"/loop1"); // null resolvePath(fs, "/real"); // "/real"
+
+	-->
+    </body>
+    <script>
+        const fs = {
+            "/a": "/b",
+            "/b": "/c",
+            "/c": null,
+            "/loop1": "/loop2",
+            "/loop2": "/loop1",
+            "/real": null,
+            "/alias": "/real",
+        };
+
+        // create a recursive function
+        function resolvePath(givenPath, visited = new Set()) {
+            if (!givenPath) {
+                console.log("Invalid path");
+                return null;
+            }
+
+            if (!(givenPath in fs)) {
+                console.log("Invalid path");
+                return null;
+            }
+
+            if (visited.has(givenPath)) {
+                console.log("Answer: null");
+                return null;
+            }
+
+            const target = fs[givenPath];
+
+            if (target === null) {
+                console.log(`Answer: ${givenPath}`);
+                return givenPath;
+            }
+
+            visited.add(givenPath);
+
+            return resolvePath(target, visited);
+        }
+
+        resolvePath("/a"); // "/c"
+        resolvePath("/alias"); // "/real"
+        resolvePath("/loop1"); // null
+        resolvePath("/real"); // "/real"
+    </script>
+</html>
