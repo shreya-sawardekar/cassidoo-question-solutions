@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pizza Order</title>
+    </head>
+    <body>
+        <!--
+            You're building a pizza ordering system that enforces strict
+            ingredient layering rules. Given an array of pizza layers (bottom to
+            top) and a set of rules where each rule states that ingredient A
+            must appear somewhere below ingredient B, write a function that
+            determines whether the pizza is valid. If any rule is violated,
+            return the pair `[A, B]` that was violated first (in the order the
+            rules are given). If the pizza is valid, return `true`.
+        -->
+
+        <script>
+            const layers = ["dough", "sauce", "cheese", "pepperoni", "basil"]; //from bottom to top
+            const rules = [
+                ["sauce", "cheese"],
+                ["cheese", "pepperoni"],
+                ["dough", "basil"],
+            ];
+            const rules2 = [
+                ["cheese", "pepperoni"],
+                ["cheese", "sauce"], // "it's under the sauce"
+            ];
+
+            const validatePizza = (layers, rules) => {
+                if (!rules.length) {
+                    return true;
+                }
+
+                for (const rule of rules) {
+                    for (let i = 0; i < rule.length - 1; i++) {
+                        const a = rule[i];
+                        const b = rule[i + 1];
+
+                        const indexA = layers.indexOf(a);
+                        const indexB = layers.indexOf(b);
+
+                        if (indexA === -1 || indexB === -1) {
+                            return rule;
+                        }
+
+                        if (indexA >= indexB) {
+                            return rule;
+                        }
+                    }
+                }
+                return true;
+            };
+
+            console.log(validatePizza(layers, rules));
+            console.log(validatePizza(layers, rules2));
+        </script>
+    </body>
+</html>
