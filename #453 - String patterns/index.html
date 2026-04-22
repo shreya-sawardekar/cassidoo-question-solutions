@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>String Patterns</title>
+    </head>
+    <body>
+        <!--
+            Given a string `s` containing letters and `?` wildcards (that can
+            match any letter), and a target pattern string `pattern`, rearrange
+            the entire string however you like. Return the maximum number of
+            non-overlapping copies of `pattern` that can appear in the
+            rearranged result.
+        -->
+
+        <script>
+            const maxPatternCopies = (s, target) => {
+                console.log(s, target);
+                if (!target.length) {
+                    return;
+                }
+
+                const wildCardlength = s.split("?").length - 1;
+
+                const targetArr = target.split("");
+                const targetObj = {};
+                for (let item of targetArr) {
+                    if (item in targetObj) {
+                        targetObj[item] += 1;
+                    } else {
+                        targetObj[item] = 1;
+                    }
+                }
+
+                const sArr = s.split("");
+                const sObj = {};
+                for (let item of sArr) {
+                    if (item === "?") continue;
+                    if (item in sObj) {
+                        sObj[item] += 1;
+                    } else {
+                        sObj[item] = 1;
+                    }
+                }
+
+                const appearance = [];
+                for (let item in targetObj) {
+                    if (sObj[item]) {
+                        appearance.push(sObj[item] / targetObj[item]);
+                    } else {
+                        appearance.push(0);
+                    }
+                }
+
+                return appearance.length > 0
+                    ? Math.min(...appearance) +
+                          Math.floor(wildCardlength / target.length)
+                    : 0;
+            };
+
+            console.log(maxPatternCopies("abcabc???", "ac")); // 3
+            console.log(maxPatternCopies("aab??", "aab")); // 1
+            console.log(maxPatternCopies("??????", "abc")); // 2
+        </script>
+    </body>
+</html>
