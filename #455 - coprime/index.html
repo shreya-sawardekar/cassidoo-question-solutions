@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Coprime</title>
+    </head>
+    <body>
+        <!--
+            Given an array of positive integers, find the length of the longest
+            subsequence where every adjacent pair of elements in the subsequence
+            is coprime (where the greatest common divisor, or GCD, is 1).
+
+            longestCoprimeSubsequence([6, 12, 4, 8]) > 1 // none are coprime
+            longestCoprimeSubsequence([4, 3, 6, 9, 7, 2]) > 4 // [4, 3, 7, 2],
+            where gcd(4,3)=1, gcd(3,7)=1, gcd(7,2)=1
+        -->
+
+        <script>
+            const longestCoprimeSubsequence = (arrNum) => {
+                if (!arrNum.length) return;
+
+                const gcd = (a, b) => {
+                    if (b == 0) return a;
+
+                    return gcd(b, a % b);
+                };
+
+                const recursion = (index, aNum) => {
+                    if (index >= arrNum.length) return 0;
+
+                    const skip = recursion(index + 1, aNum);
+
+                    let result = 0;
+                    if (!aNum || gcd(arrNum[index], aNum) === 1) {
+                        result = 1 + recursion(index + 1, arrNum[index]);
+                    }
+
+                    return Math.max(skip, result);
+                };
+
+                return recursion(0, null);
+            };
+
+            console.log(longestCoprimeSubsequence([6, 12, 4, 8]));
+            console.log(longestCoprimeSubsequence([4, 3, 6, 9, 7, 2]));
+        </script>
+    </body>
+</html>
