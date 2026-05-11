@@ -12,11 +12,38 @@
         (connected horizontally or vertically). Find the minimum number of tiles
         you need to repair to ensure no broken region has an area larger than
         `k`.
-        const grid = [ [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 0, 1], [0, 1, 1,
-        1], ]; const k = 2; let newGrid = [ [1, 0, 0, 1], [1, 0, 0, 1], [1, 1,
-        0, 1], [0, 0, 1, 1], ]; let newK = 1; minRepairs(grid, k) > 2
+        const grid = [
+                        [1, 0, 0, 1],
+                        [1, 0, 0, 1],
+                        [1, 1, 0, 1],
+                        [0, 1, 1, 1],
+                    ];
+        const k = 2;
+
+        let newGrid = [
+                        [1, 0, 0, 1],
+                        [1, 0, 0, 1],
+                        [1, 1, 0, 1],
+                        [0, 0, 1, 1],
+                    ];
+        let newK = 1;
+
+        minRepairs(grid, k) > 2
         minRepairs(newGrid, newK) > 3
 
         -->
+
+        <script>
+            const minRepairs = (gridTiles, area) => {};
+
+            const grid = [
+                [1, 0, 0, 1],
+                [1, 0, 0, 1],
+                [1, 1, 0, 1],
+                [0, 1, 1, 1],
+            ];
+            const k = 2;
+            minRepairs(grid, k);
+        </script>
     </body>
 </html>
