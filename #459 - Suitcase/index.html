@@ -12,5 +12,35 @@
             packSuitcases([4, 8, 1, 4, 2], [10, 6, 8]); > 3
             packSuitcases([9, 7, 6], [10, 6]); > -1
         -->
+
+        <script>
+            const packSuitcases = (objWeights, suitcaseCapacity) => {
+                // sorting to create ascending order of both
+                objWeights = objWeights.sort((a, b) => a - b);
+                suitcaseCapacity = suitcaseCapacity.sort((a, b) => a - b);
+                const remainingSuitcaseCapacity = [];
+
+                // subtract objects from suitcase capactiy as each suitcase gets packed
+                suitcaseCapacity.map((capacity) => {
+                    // 6, 10
+                    objWeights.map((weight) => {
+                        // 6,7,9
+                        const leftoverSpace = capacity - weight;
+
+                        if (leftoverSpace <= 0) {
+                            // suitcase doesnt have any capacity left for other objects.
+                        } else {
+                            remainingSuitcaseCapacity.push(leftoverSpace); // 4
+                        }
+                    });
+                });
+
+                console.log(objWeights);
+                console.log(suitcaseCapacity);
+            };
+
+            packSuitcases([9, 7, 6], [10, 6]);
+            // packSuitcases([4, 8, 1, 4, 2], [10, 6, 8]);
+        </script>
     </body>
 </html>
