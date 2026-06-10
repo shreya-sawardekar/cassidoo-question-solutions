@@ -19,31 +19,29 @@
                 objWeights = objWeights.sort((a, b) => b - a); // desc order
                 suitcaseCapacity = suitcaseCapacity.sort((a, b) => b - a); // desc order
 
-                const remainingSuitcaseCapacity = [];
+                // maintain a new array and mutate it
+                const remainingSuitcaseCapacity = suitcaseCapacity.slice();
 
                 // subtract objects from suitcase capactiy as each suitcase gets packed
-                objWeights.map((weight) => {
-                    // [ 9, 7, 6 ] | [ 10, 6 ]
-                    const findWhichSuitcaseFitsObj = suitcaseCapacity.filter(
+                for (const weight of objWeights) {
+                    const index = remainingSuitcaseCapacity.findIndex(
                         (capacity) => weight <= capacity,
                     );
-                    console.log(weight);
-                    console.log(findWhichSuitcaseFitsObj);
 
-                    // deduct the weight from that suitcase capacity
-                    if (findWhichSuitcaseFitsObj.length > 0) {
-                        suitcaseCapacity[
-                            suitcaseCapacity.indexOf(
-                                findWhichSuitcaseFitsObj[0],
-                            )
-                        ] = findWhichSuitcaseFitsObj[0] - weight;
+                    if (index === -1) {
+                        return -1;
                     }
-                });
-                console.log(suitcaseCapacity);
+                    remainingSuitcaseCapacity[index] =
+                        remainingSuitcaseCapacity[index] - weight;
+                }
+
+                return remainingSuitcaseCapacity.filter(
+                    (capacity, index) => capacity !== suitcaseCapacity[index],
+                ).length;
             };
 
-            // packSuitcases([9, 7, 6], [10, 6]);
-            packSuitcases([4, 8, 1, 4, 2], [10, 6, 8]);
+            console.log(packSuitcases([9, 7, 6], [10, 6]));
+            console.log(packSuitcases([4, 8, 1, 4, 2], [10, 6, 8]));
         </script>
     </body>
 </html>
