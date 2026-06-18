@@ -8,32 +8,22 @@
     <body>
         <!--
             Given an input positive integer `n` (from 1 to your language's limit, inclusively), return the maximum number of distinct positive integers that sum to `n`.
-            maxDistinctCount(5) > 2  2 + 3 = 5, or 1 + 4 = 5
+            maxDistinctCount(5) > 2 // 2 + 3 = 5, or 1 + 4 = 5
             maxDistinctCount(8) > 3 // 1 + 2 + 5 = 8
             maxDistinctCount(15) > 5 // 1 + 2 + 3 + 4 + 5 = 15
         -->
 
         <script>
             const maxDistinctCount = (n) => {
-                const distinctNum = [];
-                const array = [];
-                for (let i = 1; i < n; i++) {
-                    array.push(i);
+                let total = 0;
+                let count = 0;
+                while (total <= n) {
+                    count++;
+                    total += count;
                 }
 
-                for (let i = 0; i < array.length; i++) {
-                    let total = 0;
-                    for (j = i; j < array.length; j++) {
-                        total = array[i] + array[j];
-
-                        if (total === n && array[i] !== array[j]) {
-                            distinctNum.push([array[i], array[j]]);
-                            break;
-                        }
-                    }
-                }
-
-                return distinctNum.length;
+                console.log(count - 1);
+                return count - 1;
             };
 
             maxDistinctCount(5);
