@@ -10,6 +10,28 @@
         > meanBits(6) > 2.00
         // Explanation // 0: 1 bit, 1: 1 bit, 2: 2 bits, 3: 2 bits, 4: 3 bits, 5: 3 bits // Mean = (1 + 1 + 2 + 2 + 3 + 3) / 6 = 2.00
         -->
-        <script></script>
+        <script>
+            const meanBits = (n) => {
+                // 0: 1 bit, 1: 1 bit, 2: 2 bits, 3: 2 bits, 4: 3 bits, 5: 3 bits
+                const bitsAssigned = {
+                    0: 1,
+                    1: 1,
+                    2: 2,
+                    3: 2,
+                    4: 3,
+                    5: 3,
+                };
+
+                let total = 0;
+                for (i = 0; i <= n - 1; i++) {
+                    total += bitsAssigned[i];
+                }
+
+                const mean = (total / n).toFixed(2);
+                console.log(mean);
+            };
+
+            meanBits(6);
+        </script>
     </body>
 </html>
