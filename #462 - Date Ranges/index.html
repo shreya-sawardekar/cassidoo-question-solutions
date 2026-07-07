@@ -27,10 +27,31 @@
 
         <script>
             const shouldAutoReply = (
-                unavailableRanges1,
-                overrideDates1,
-                messageDate1,
-            ) => {};
+                unavailableRanges,
+                overrideDates,
+                messageDate,
+            ) => {
+                const isOverrideDate = overrideDates.includes(messageDate);
+
+                let isWithinRange = false;
+
+                for (let i = 0; i < unavailableRanges.length; i++) {
+                    const dates = unavailableRanges[i];
+                    const fromDate = dates[0];
+                    const toDate = dates[1];
+
+                    if (messageDate >= fromDate && messageDate <= toDate) {
+                        isWithinRange = true;
+                        break;
+                    }
+                }
+
+                if (isWithinRange && !isOverrideDate) {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
 
             const unavailableRanges1 = [
                 ["2026-07-01", "2026-07-10"],
@@ -38,7 +59,35 @@
             ];
             const overrideDates1 = ["2026-07-04"];
             const messageDate1 = "2026-07-05";
-            shouldAutoReply(unavailableRanges1, overrideDates1, messageDate1);
+            console.log(
+                shouldAutoReply(
+                    unavailableRanges1,
+                    overrideDates1,
+                    messageDate1,
+                ),
+            );
+
+            const unavailableRanges2 = [["2026-07-01", "2026-07-10"]];
+            const overrideDates2 = ["2026-07-04"];
+            const messageDate2 = "2026-07-04";
+            console.log(
+                shouldAutoReply(
+                    unavailableRanges2,
+                    overrideDates2,
+                    messageDate2,
+                ),
+            );
+
+            const unavailableRanges3 = [["2026-07-01", "2026-07-10"]];
+            const overrideDates3 = [];
+            const messageDate3 = "2026-07-11";
+            console.log(
+                shouldAutoReply(
+                    unavailableRanges3,
+                    overrideDates3,
+                    messageDate3,
+                ),
+            );
         </script>
     </body>
 </html>
